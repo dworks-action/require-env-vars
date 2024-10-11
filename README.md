@@ -13,12 +13,12 @@ on: [push, pull_request]
 
 jobs:
   examplpe:
-	runs-on: ubuntu-latest
-	steps:
-	  - name: Check Env Vars
-		uses: dworks-action/require-env-vars@v1
-		with:
-		  vars: VAR1 VAR2 VAR3
+  runs-on: ubuntu-latest
+  steps:
+    - name: Check Env Vars
+      uses: dworks-action/require-env-vars@v0
+      with:
+        vars: VAR1 VAR2 VAR3
 ```
 
 ## Inputs

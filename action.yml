@@ -1,0 +1,25 @@
+name: 'Check Required Environment Variables'
+description: 'Checks if required environment variables are set'
+
+inputs:
+  vars:
+    description: 'Space-separated list of required environment variables'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check required environment variables
+      shell: bash
+      run: |
+        IFS=' ' read -ra required_vars <<< "${{ inputs.vars }}"
+        missing_vars=()
+        for var in "${required_vars[@]}"; do
+          if [ -z "${!var}" ]; then
+            missing_vars+=("$var")
+          fi
+        done
+        if [ ${#missing_vars[@]} -ne 0 ]; then
+          echo "Error: The following required environment variables are not set: ${missing_vars[*]}"
+          exit 1
+        fi
